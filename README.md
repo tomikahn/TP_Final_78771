@@ -1,2 +1,3 @@
 # TP_Final_78771
-repositorio del trabajo final de simulacion
+
+![image](https://user-images.githubusercontent.com/71043363/124674749-b304ea00-de91-11eb-8cf5-c329cdb98789.png)

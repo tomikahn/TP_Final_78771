@@ -16,16 +16,16 @@ class Cliente:
         else:
              return "se fue"
 
-    def finPermanencia(self, reloj):
+    def finPermanencia(self, reloj, minsala1A, maxsala1A, minsala1B, maxsala1B, minsala1C, maxsala1C):
         if self.estado == "Salon 1":
             if self.tiempo_inicio <= (3600 * 2):
-                fin_permanencia = soporte.generar_permanencia(180, reloj)
+                fin_permanencia = soporte.generar_permanenciasalon1(reloj, minsala1A, maxsala1A)
                 return fin_permanencia
             elif self.tiempo_inicio <= (3600 * 5):
-                fin_permanencia = soporte.generar_permanencia(240, reloj)
+                fin_permanencia = soporte.generar_permanenciasalon1(reloj, minsala1B, maxsala1B)
                 return fin_permanencia
             else:
-                fin_permanencia = soporte.generar_permanencia(210, reloj)
+                fin_permanencia = soporte.generar_permanenciasalon1(reloj, minsala1C, maxsala1C)
                 return fin_permanencia
         elif self.estado == "Salon 2":
             if self.tiempo_inicio <= (3600 * 2):
@@ -51,16 +51,16 @@ class Cliente:
                 fin_permanencia = soporte.generar_permanencia(300, reloj)
                 return fin_permanencia
 
-    def ejecutar(self, reloj):
+    def ejecutar(self, reloj, minsala1A, maxsala1A, minsala1B, maxsala1B, minsala1C, maxsala1C):
 
         if self.fin_permanencia == "":  # si esta vacio le creo el fin de permanencia
-            self.fin_permanencia = self.finPermanencia(reloj)
+            self.fin_permanencia = self.finPermanencia(reloj, minsala1A, maxsala1A, minsala1B, maxsala1B, minsala1C, maxsala1C)
             return
         else:
             if reloj == self.fin_permanencia:
                 self.estado = self.salonSiguiente()
                 if self.estado != "se fue":
-                    self.fin_permanencia = self.finPermanencia(reloj)  # verificar si este era el error
+                    self.fin_permanencia = self.finPermanencia(reloj, minsala1A, maxsala1A, minsala1B, maxsala1B, minsala1C, maxsala1C)  # verificar si este era el error
                 else:
                     self.fin_permanencia = "-"
                     self.tipo = "F"

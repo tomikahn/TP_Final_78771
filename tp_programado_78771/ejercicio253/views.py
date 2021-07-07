@@ -15,6 +15,16 @@ class simulacion(generic.FormView):
         fin = form.cleaned_data['fin']
         relojFin = form.cleaned_data['min_fin']
         relojInicio = form.cleaned_data['min_inicio']
+        minA = form.cleaned_data['minA']
+        maxA = form.cleaned_data['maxA']
+        minB = form.cleaned_data['minB']
+        maxB = form.cleaned_data['maxB']
+        minsala1A = form.cleaned_data['minsala1A']
+        maxsala1A = form.cleaned_data['maxsala1A']
+        minsala1B = form.cleaned_data['minsala1B']
+        maxsala1B = form.cleaned_data['maxsala1B']
+        minsala1C = form.cleaned_data['minsala1C']
+        maxsala1C = form.cleaned_data['maxsala1C']
 
         # seteo de variables
         matriz = [[''] * 10 for f in range(1)]
@@ -56,7 +66,7 @@ class simulacion(generic.FormView):
             # inicializacion
             if init:
                 evento = eventos[0]
-                proxima_llegada_A = reloj + soporte.generar_llegada_A()
+                proxima_llegada_A = reloj + soporte.generar_llegada_A(minA, maxA)
                 init = False
 
             # inicio de los trabajos
@@ -66,19 +76,19 @@ class simulacion(generic.FormView):
                     evento = eventos[1]
                     tipo_cliente = 'A'
                     estado = estados_cliente[0]
-                    proxima_llegada_A = reloj + soporte.generar_llegada_A()
+                    proxima_llegada_A = reloj + soporte.generar_llegada_A(minA, maxA)
 
                 else:
                     if reloj == proxima_llegada_A:
                         evento = eventos[1]
                         tipo_cliente = 'A'
                         estado = estados_cliente[0]
-                        proxima_llegada_A = reloj + soporte.generar_llegada_A()
+                        proxima_llegada_A = reloj + soporte.generar_llegada_A(minA, maxA)
                     else:
                         evento = eventos[2]
                         tipo_cliente = 'B'
                         estado = estados_cliente[0]
-                        proxima_llegada_B = reloj + soporte.generar_llegada_B()
+                        proxima_llegada_B = reloj + soporte.generar_llegada_B(minB, maxB)
 
                 llegada_cliente = False  # por las dudas
                 id_cliente += 1  # sumo para agregar un nuevo cliente al vector de clientes
@@ -87,7 +97,7 @@ class simulacion(generic.FormView):
                 matriz_cliente = [[''] * 2 for f in range(len(matriz))]  # para agregar el nuevo cliente a la matriz
                 matriz = np.hstack((matriz, matriz_cliente))
                 for Cliente in clientes:
-                    Cliente.ejecutar(reloj)
+                    Cliente.ejecutar(reloj, minsala1A, maxsala1A, minsala1B, maxsala1B, minsala1C, maxsala1C)
 
             elif reloj == 3600 and apertura:
                 temporal_tiempo = 3600
@@ -95,14 +105,14 @@ class simulacion(generic.FormView):
                 llegada_cliente_A = False
                 llegada_cliente_B = False
                 evento = eventos[4]
-                proxima_llegada_B = reloj + soporte.generar_llegada_B()
+                proxima_llegada_B = reloj + soporte.generar_llegada_B(minB, maxB)
                 apertura = False
 
             else:
                 evento = eventos[3]  # es un evento de fin de permanencia
                 for Cliente in clientes:
                     if Cliente.estado != "se fue":
-                        Cliente.ejecutar(reloj)
+                        Cliente.ejecutar(reloj, minsala1A, maxsala1A, minsala1B, maxsala1B, minsala1C, maxsala1C)
                     else:
                         pass
                         #if Cliente.fin_permanencia == "-" and Cliente.tipo == "F":  # falta validar otra cosa mas

@@ -1,12 +1,12 @@
 import math, random
 
-def generar_llegada_A():
-        rnd = random.randint((30 - 10), (30 + 10))
+def generar_llegada_A(min, max):
+        rnd = random.randint((min), (max))
         return rnd
 
-def generar_llegada_B():
-    rnd = random.randint((20 - 10), (20 + 10))
-    return rnd
+def generar_llegada_B(min, max):
+        rnd = random.randint((min), (max))
+        return rnd
 
 
 def salonSiguiente():
@@ -20,4 +20,13 @@ def generar_permanencia(valor, reloj):
     #permanencia
     rnd = random.randint((valor-60), (valor+60))
     permanencia = rnd + reloj
+    return permanencia
+    return permanencia
+
+
+def generar_permanenciasalon1(reloj, min, max):
+    #permanencia
+    rnd = random.randint(0, 60)
+    rnd2 = min + rnd
+    permanencia = rnd2 + reloj
     return permanencia

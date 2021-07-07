@@ -56,7 +56,7 @@ class simulacion(generic.FormView):
             # inicializacion
             if init:
                 evento = eventos[0]
-                proxima_llegada_A = reloj + soporte.generar_llegada()
+                proxima_llegada_A = reloj + soporte.generar_llegada_A()
                 init = False
 
             # inicio de los trabajos
@@ -66,19 +66,19 @@ class simulacion(generic.FormView):
                     evento = eventos[1]
                     tipo_cliente = 'A'
                     estado = estados_cliente[0]
-                    proxima_llegada_A = reloj + soporte.generar_llegada()
+                    proxima_llegada_A = reloj + soporte.generar_llegada_A()
 
                 else:
                     if reloj == proxima_llegada_A:
                         evento = eventos[1]
                         tipo_cliente = 'A'
                         estado = estados_cliente[0]
-                        proxima_llegada_A = reloj + soporte.generar_llegada()
+                        proxima_llegada_A = reloj + soporte.generar_llegada_A()
                     else:
                         evento = eventos[2]
                         tipo_cliente = 'B'
                         estado = estados_cliente[0]
-                        proxima_llegada_B = reloj + soporte.generar_llegada()
+                        proxima_llegada_B = reloj + soporte.generar_llegada_B()
 
                 llegada_cliente = False  # por las dudas
                 id_cliente += 1  # sumo para agregar un nuevo cliente al vector de clientes
@@ -95,7 +95,7 @@ class simulacion(generic.FormView):
                 llegada_cliente_A = False
                 llegada_cliente_B = False
                 evento = eventos[4]
-                proxima_llegada_B = reloj + soporte.generar_llegada()
+                proxima_llegada_B = reloj + soporte.generar_llegada_B()
                 apertura = False
 
             else:
